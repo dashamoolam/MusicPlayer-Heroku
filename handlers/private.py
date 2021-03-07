@@ -31,6 +31,7 @@ This is a simple bot by @subinps to play Music in Xanthronz Group.
                     ),
                     InlineKeyboardButton(
                         "⚒ Source code", url="https://github.com/subinps/MusicPlayer-Heroku"
+                    )
                 ]
             ]
         )
