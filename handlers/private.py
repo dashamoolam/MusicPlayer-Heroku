@@ -31,6 +31,11 @@ Use the buttons below to know more about me.""",
                         "Channel 🔈", url="https://t.me/subin_works"
                     )
                 ]
+                [
+                    InlineKeyboardButton(
+                        "Search Youtube", switch_inline_query_current_chat=""
+                    )
+                ]
             ]
         )
     )
@@ -97,3 +102,68 @@ async def play(client: Client, message_: Message):
     else:
         await res.edit_text("▶️ Playing...")
         tgcalls.pytgcalls.join_group_call(GROUP, file_path, 48000)
+        
+        
+        
+
+@Client.on_message(
+    filters.command("pause")
+    & filters.private
+    & ~ filters.edited
+)
+@errors
+@admins_only
+async def pause(client: Client, message: Message):
+    tgcalls.pytgcalls.pause_stream(GROUP)
+    await message.reply_text("⏸ Paused.")
+
+
+@Client.on_message(
+    filters.command("resume")
+    & filters.private
+    & ~ filters.edited
+)
+@errors
+@admins_only
+async def resume(client: Client, message: Message):
+    tgcalls.pytgcalls.resume_stream(GROUP)
+    await message.reply_text("▶️ Resumed.")
+
+
+@Client.on_message(
+    filters.command(["stop", "end"])
+    & filters.private
+    & ~ filters.edited
+)
+@errors
+@admins_only
+async def stop(client: Client, message: Message):
+    try:
+        sira.clear(GROUP)
+    except:
+        pass
+
+    tgcalls.pytgcalls.leave_group_call(GROUP)
+    await message.reply_text("⏹ Stopped streaming.")
+
+
+@Client.on_message(
+    filters.command(["skip", "next"])
+    & filters.private
+    & ~ filters.edited
+)
+@errors
+@admins_only
+async def skip(client: Client, message: Message):
+    chat_id = GROUP
+
+    sira.task_done(chat_id)
+
+    if sira.is_empty(chat_id):
+        tgcalls.pytgcalls.leave_group_call(chat_id)
+    else:
+        tgcalls.pytgcalls.change_stream(
+            chat_id, sira.get(chat_id)["file_path"]
+        )
+
+    await message.reply_text("⏩ Skipped the current song.")
