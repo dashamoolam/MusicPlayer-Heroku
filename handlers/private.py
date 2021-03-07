@@ -7,7 +7,7 @@ import sira
 from config import DURATION_LIMIT
 from helpers.wrappers import errors
 from helpers.errors import DurationLimitError
-
+GROUP = -1001491050028
 
 @Client.on_message(
     filters.command("start")
