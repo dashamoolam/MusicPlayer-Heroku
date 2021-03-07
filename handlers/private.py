@@ -5,8 +5,12 @@ from converter import convert
 from youtube import download
 import sira
 from config import DURATION_LIMIT
-from helpers.wrappers import errors
 from helpers.errors import DurationLimitError
+
+from cache.admins import set
+from helpers.wrappers import errors, admins_only
+
+
 GROUP = -1001491050028
 
 @Client.on_message(
