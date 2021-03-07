@@ -22,28 +22,19 @@ async def start_(client: Client, message: Message):
     await message.reply_text(
         f"""<b>👋🏻 Hi {message.from_user.first_name}!</b>
 This is a simple bot by @subinps to play Music in Xanthronz Group.
-Use the buttons below to know more about me.""",
+""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "⚒ Source code", url="https://github.com/subinps/MusicPlayer-Heroku"
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        "Channel 🔈", url="https://t.me/subin_works"
-                    )
-                ]
-                [
-                    InlineKeyboardButton(
                         "Search Youtube", switch_inline_query_current_chat=""
-                    )
+                    ),
+                    InlineKeyboardButton(
+                        "⚒ Source code", url="https://github.com/subinps/MusicPlayer-Heroku"
                 ]
             ]
         )
     )
-
 
     
 
